@@ -13,7 +13,7 @@ g = 4;
 b0 = 2;
 R_m = 5;
 
-var1 = 0.1:0.02:20;
+var1 = 0.1:0.1:20;
 %vars-end
 
 sigmaSize = length(var1);
@@ -26,7 +26,7 @@ sigma4 = zeros(1,sigmaSize);
 count = 0;
 for i=1:sigmaSize
     %coefficients
-    k = var1(i);
+    b0 = var1(i);
     
     A = 1;
     B = 1j*((2*k^2)/(R_m));
@@ -196,49 +196,24 @@ end;
 % sorting of decisions
 sigma = [sigma1 sigma2 sigma3 sigma4];
 var2 = [var1 var1 var1 var1];
+
+sigma_table = zeros(length(var1), 5);
+for i=1:length(var1)
+    sigma_table(i,1) = var1(i);
+    sigma_table(i,2) = sigma1(i);
+    sigma_table(i,3) = sigma2(i);
+    sigma_table(i,4) = sigma3(i);
+    sigma_table(i,5) = sigma4(i);
+end;
+
+sigma_table
 %
 
 subplot(1,2,1)
 plot(var2, real(sigma), '.');
-xlabel('alpha');
+xlabel('b_0');
 ylabel('Re(sigma)');
 subplot(1,2,2)
 plot(var2, imag(sigma), '.');
-xlabel('alpha');
+xlabel('b_0');
 ylabel('Im(sigma)');
-
-%subplot(1,2,1)
-%plot(alpha1, real(sigma1));
-%xlabel('alpha');
-%ylabel('Re(sigma)');
-%subplot(1,2,2)
-%plot(alpha1, imag(sigma1));
-%xlabel('alpha');
-%ylabel('Im(sigma)');
-
-%subplot(1,2,1)
-%plot(k, real(sigma1));
-%xlabel('k');
-%ylabel('Re(sigma)');
-%subplot(1,2,2)
-%plot(k, imag(sigma1));
-%xlabel('k');
-%ylabel('Im(sigma)');
-
-%subplot(1,2,1)
-%plot(g, real(sigma4));
-%xlabel('g');
-%ylabel('Re(sigma)');
-%subplot(1,2,2)
-%plot(g, imag(sigma4));
-%xlabel('g');
-%ylabel('Im(sigma)');
-
-%subplot(1,2,1)
-%plot(b_0, real(sigma4));
-%xlabel('b_0');
-%ylabel('Re(sigma)');
-%subplot(1,2,2)
-%plot(b_0, imag(sigma4));
-%xlabel('b_0');
-%ylabel('Im(sigma)');
